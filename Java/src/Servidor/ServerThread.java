@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class ServerThread {
+public class ServerThread extends Thread{
 	
 	private Socket cliente = null;
 	private gerenciador geren = null;
@@ -24,7 +24,7 @@ public class ServerThread {
 	}
 	
 	@SuppressWarnings("resource")
-	public Runnable run() {
+	public void run() {
 		// Informa o IP do cliente que se conectou
 		System.out.println("[Servidor] IP: " + cliente.getInetAddress().getHostAddress() + " Conectado");
 		InputStream is;
@@ -86,7 +86,6 @@ public class ServerThread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return null;
 	}
 
 	
