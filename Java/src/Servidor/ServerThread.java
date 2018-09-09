@@ -3,6 +3,7 @@ package Servidor;
 import Arquivos.gerenciador;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+
 
 public class ServerThread extends Thread{
 	
@@ -41,9 +43,10 @@ public class ServerThread extends Thread{
 					String pedido = (String)ois.readObject();
 					//Ao chegar um novo pedido, o sistema verifica se existe o arquivo
 					if(geren.verificaArquivo(pedido)) {
+						
 						//Se o arquivo existir, ele retornará o peso do arquivo
 						File enviar = geren.pegarArquivo(pedido);
-						byte [] mybytearray  = new byte [(int)enviar.length()];
+						//byte [] mybytearray  = new byte [(int)enviar.length()];
 						
 						//Retornando o peso do arquivo
 						int peso = (int)enviar.length();
@@ -55,7 +58,19 @@ public class ServerThread extends Thread{
 						
 						
 						//Agora retorna o arquivo
-						FileInputStream fis = new FileInputStream(enviar);
+						
+						FileInputStream input = new FileInputStream(enviar);
+				        BufferedInputStream b_input = new BufferedInputStream(input);
+				        System.out.println("[Servidor] Transferindo arquivo: "+nomeArquivo+" para "+ cliente.getInetAddress());
+				        BufferedOutputStream output = new BufferedOutputStream(cliente.getOutputStream());
+				        int len;
+				        while((len = b_input.read()) != -1) {
+				            output.write(len);
+				        }
+				        output.flush();
+				        output.close();
+				        input.close();
+						/*FileInputStream fis = new FileInputStream(enviar);
 						BufferedInputStream bis = new BufferedInputStream(fis);
 				        bis.read(mybytearray,0,mybytearray.length);
 				        
@@ -64,7 +79,7 @@ public class ServerThread extends Thread{
 				        os.write(mybytearray,0,mybytearray.length);
 				        os.flush();
 				        
-				        System.out.println("[Servidor] Arquivo Enviado.");
+				        System.out.println("[Servidor] Arquivo Enviado.");*/
 					}else {
 						//Retornando o peso do arquivo
 						int peso = -1;

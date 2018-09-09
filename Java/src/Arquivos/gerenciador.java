@@ -11,6 +11,12 @@ public class gerenciador {
 		this.folder = new File(DirFiles);
 	}
 	
+	public void listarArquivos() {
+		for (final File fileEntry : folder.listFiles()) {
+			System.out.println(fileEntry.getName());
+		}
+	}
+	
 	public Boolean verificaArquivo(String Arquivo) {
 		for (final File fileEntry : folder.listFiles()) {
 			if(fileEntry.getName().equals(Arquivo)) {

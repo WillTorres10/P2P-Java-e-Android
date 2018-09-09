@@ -9,11 +9,9 @@ import Arquivos.gerenciador;
 public class server extends Thread{
 	
 	public gerenciador geren = null;
-	public ArrayList<Socket> slotes = null;
 	
-	public server(gerenciador ger, ArrayList<Socket> conectados) {
+	public server(gerenciador ger) {
 		geren = ger;
-		slotes = conectados;
 	}
 
 	public void run() {
@@ -53,14 +51,12 @@ public class server extends Thread{
 					//Se não encontrou nunhuma thread morta, ele adiciona mais uma no final da lista
 					if(adicionado == 0){
 						//Adiciona a nova conexão ao arraylist
-						slotes.add(cliente);
 						ServerThread novo = new ServerThread(cliente, geren);
 						Thread c1 = new Thread(novo);
 						c1.start();
 						slotesThread.add(c1);
 					}
 				}
-				System.out.println(slotes.size());
 			}
 		}
 		catch(Exception e) {

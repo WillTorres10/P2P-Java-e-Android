@@ -8,43 +8,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class cliente {
-	
-	public ArrayList<Socket> conectados = null;
 
-	public cliente(ArrayList<Socket> conect) {
-		conectados = conect;
+	public cliente() {
+		
 		
 	}
 	
-	public void descobrirServidores() {
-		try {
-			System.out.println("[Cliente] "+InetAddress.getLocalHost().getHostAddress());
-		}catch(Exception e) {
-			e.printStackTrace();
+	public ArrayList<String> listarIPs() {
+		ArrayList<String> ips = new ArrayList<String>();
+		for(int i = 0; i<256; i++ ) {
+			ips.add("192.168.0."+i);
 		}
-		while (true) {
-			try {
-				Socket buscador = new Socket(InetAddress.getLocalHost().getHostAddress(), 8000);
-				OutputStream os = buscador.getOutputStream();
-				ObjectOutputStream oos = new ObjectOutputStream(os);
-				oos.writeObject(null);
-				buscador.close();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			break;
-		}
+		return ips;
 	}
 	
 	public void buscarArquivo(String music) {
-		Collections.shuffle(conectados);
-		ArrayList<Thread> Buscando = new ArrayList<Thread>();
-		for (Socket socket : conectados) {
-			buscaThread buscar = new buscaThread(socket, music);
-			Thread preBusca = new Thread(buscar.run());
-			Buscando.add(preBusca);
+		ArrayList<String> ips = listarIPs();
+		Collections.shuffle(ips);
+		for (String ip : ips) {
+			buscaThread buscar = new buscaThread(ip, music);
+			Thread preBusca = new Thread(buscar);
 			preBusca.start();
 		}
 	}
