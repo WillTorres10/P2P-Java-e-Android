@@ -17,7 +17,7 @@ public class cliente {
 	public ArrayList<String> listarIPs() {
 		ArrayList<String> ips = new ArrayList<String>();
 		for(int i = 0; i<256; i++ ) {
-			ips.add("192.168.0."+i);
+			ips.add("192.168.1."+i);
 		}
 		return ips;
 	}

@@ -34,15 +34,5 @@ public class gerenciador {
 		}
 		return null;
 	}
-	
-	public static void listarArquivosNoDiretorio(final File folder) {
-	    for (final File fileEntry : folder.listFiles()) {
-	        if (fileEntry.isDirectory()) {
-	        	listarArquivosNoDiretorio(fileEntry);
-	        } else {
-	            System.out.println(fileEntry.getName());
-	        }
-	    }
-	}
 
 }

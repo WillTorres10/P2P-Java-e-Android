@@ -56,7 +56,6 @@ public class ServerThread extends Thread{
 						String nomeArquivo = enviar.getName();
 						oos.writeObject(nomeArquivo);
 						
-						
 						//Agora retorna o arquivo
 						
 						FileInputStream input = new FileInputStream(enviar);
@@ -70,16 +69,6 @@ public class ServerThread extends Thread{
 				        output.flush();
 				        output.close();
 				        input.close();
-						/*FileInputStream fis = new FileInputStream(enviar);
-						BufferedInputStream bis = new BufferedInputStream(fis);
-				        bis.read(mybytearray,0,mybytearray.length);
-				        
-				        System.out.println("[Servidor] Enviando " + enviar.getName() + "(" + mybytearray.length + " bytes)");
-				        
-				        os.write(mybytearray,0,mybytearray.length);
-				        os.flush();
-				        
-				        System.out.println("[Servidor] Arquivo Enviado.");*/
 					}else {
 						//Retornando o peso do arquivo
 						int peso = -1;

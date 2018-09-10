@@ -60,25 +60,7 @@ public class buscaThread extends Thread{
 				
 				
 				
-				//receber arquivo
-				/*int bytesRead, current=0;
-				byte [] mybytearray  = new byte [peso];
-			    fos = new FileOutputStream(dirTosave+nomeArquivo);
-			    bos = new BufferedOutputStream(fos);
-			    bytesRead = is.read(mybytearray,0,mybytearray.length);
-			    current = bytesRead;
-			    do {
-			    	bytesRead = is.read(mybytearray, current, (mybytearray.length-current));
-			    	if(bytesRead >= 0){ 
-			    		current += bytesRead;
-			    	}
-			   } while(bytesRead > -1);
-			   bos.write(mybytearray, 0 , current);
-			   bos.flush();
-			   System.out.println("Arquivo " + nomeArquivo + " Transferido (" + current + " bytes)");
-			   
-			   fos.close();
-			   bos.close();*/
+				
 			}
 		}catch(Exception e) {
 		}
