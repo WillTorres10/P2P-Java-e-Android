@@ -2,7 +2,7 @@ package com.example.will.p2pandroid.Cliente;
 
 import android.os.Environment;
 import android.widget.TextView;
-
+import com.example.will.p2pandroid.Arquivos.gerenciador;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class buscaThread{
+public class buscaThread extends Thread{
     public String ip = null;
     public String text2Search = null;
     public String dirTosave = Environment.getExternalStorageDirectory().toString()+"/Download/";
@@ -25,7 +25,7 @@ public class buscaThread{
         text2Search = Buscar;
     }
 
-    public int run() {
+    public void run() {
         try {
             //Criando um objetos para comunicação
             Socket socket = new Socket(ip, 8000);
@@ -46,19 +46,18 @@ public class buscaThread{
                 os.close();
                 oos.close();
                 is.close();
-                return -1;
 
             }else {
                 //Caso o peso não seja -1 o cliente vai
                 //receber o nome do arquivo
-
-                File filename = new File(dirTosave+text2Search);
+                gerenciador a = new gerenciador(dirTosave);
+                File filename = new File(dirTosave + text2Search);
                 status.setText("[Cliente] Recebendo arquivo: " + text2Search);
                 FileOutputStream output = new FileOutputStream(filename);
                 BufferedOutputStream b_output = new BufferedOutputStream(output);
                 BufferedInputStream input = new BufferedInputStream(socket.getInputStream());
                 int len;
-                while((len = input.read()) != -1) {
+                while ((len = input.read()) != -1) {
                     b_output.write(len);
                 }
                 input.close();
@@ -69,13 +68,10 @@ public class buscaThread{
                 os.close();
                 oos.close();
                 is.close();
-                return 1;
-
             }
         }catch(Exception e) {
-            //e.printStackTrace();
         }
-        return -1;
+        Thread.currentThread().interrupt();
     }
 
     public void destroy(){

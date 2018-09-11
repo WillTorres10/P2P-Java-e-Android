@@ -42,5 +42,4 @@ public class MainActivity extends AppCompatActivity {
         nomeArquivo = findViewById(R.id.nomeArquivo);
         a.buscarArquivo(nomeArquivo.getText().toString());
     }
-
 }

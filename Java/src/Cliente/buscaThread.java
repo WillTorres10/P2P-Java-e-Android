@@ -14,7 +14,7 @@ import java.net.Socket;
 public class buscaThread extends Thread{
 	public String ip = null;
 	public String text2Search = null;
-	public String dirTosave = "/home/will/Music/save/";
+	public String dirTosave = "/home/will/Music/";
 	
 	public buscaThread(String ip, String Buscar){
 		this.ip = ip;
@@ -24,11 +24,10 @@ public class buscaThread extends Thread{
 	public void run() {
 		try {
 			//Criando um objetos para comunicação
+			@SuppressWarnings("resource")
 			Socket socket = new Socket(ip, 8000);
 			OutputStream os = socket.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(os);
-		    FileOutputStream fos = null;
-		    BufferedOutputStream bos = null;
 			InputStream is;
 			is = socket.getInputStream();
 			ObjectInputStream ois = new ObjectInputStream(is);
@@ -63,6 +62,7 @@ public class buscaThread extends Thread{
 				
 			}
 		}catch(Exception e) {
+			Thread.currentThread().interrupt();
 		}
 	}
 }

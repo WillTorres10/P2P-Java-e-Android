@@ -1,23 +1,22 @@
 package Cliente;
 
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
+import Arquivos.gerenciador;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class cliente {
-
-	public cliente() {
-		
-		
+	
+	public gerenciador geren;
+	public String faixaIP;
+	
+	public cliente(String faixaIP) {
+		this.faixaIP = faixaIP;
 	}
 	
 	public ArrayList<String> listarIPs() {
 		ArrayList<String> ips = new ArrayList<String>();
 		for(int i = 0; i<256; i++ ) {
-			ips.add("192.168.1."+i);
+			ips.add(this.faixaIP+i);
 		}
 		return ips;
 	}
